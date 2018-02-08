@@ -61,6 +61,16 @@ class App extends Component {
   }
 
   render() {
+
+    const style = {
+    
+      backgroundColor:'white',
+      font: 'inherit',
+      border: '1x solid blue',
+      padding:'8px',
+      cursor:'pointer' 
+    }; 
+
     return (
       <div className="App">
         <header className="App-header">
@@ -75,7 +85,7 @@ class App extends Component {
         </p>
 
         {/* //click with bind it is recommended*/}
-        <button
+        <button style={style}
           onClick={this
           .switchNameHandler
           .bind(this, 'Ragnarok with bind!!')}>switch with bind
