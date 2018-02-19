@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Person from "./Person/Person";
+
 class App extends Component {
 
     state = {
@@ -17,29 +18,6 @@ class App extends Component {
                 age: 11
             }
         ]
-    }
-
-    switchNameHandler = (newName) => {
-
-        // console.log('it is clicked'); wil no revognize //this.state.persons[0].name =
-        // 'ajax';
-        this.setState({
-            persons: [
-                {
-                    name: newName,
-                    age: 6
-                }, {
-                    name: 'john',
-                    age: 7
-                }, {
-                    name: 'bandit',
-                    age: 17
-                }
-            ],
-            otherState: 'the other state',
-            showPersons: false
-        });
-
     }
 
     nameChangeHandler = (event) => {
@@ -58,6 +36,13 @@ class App extends Component {
             ],
             otherState: 'the other state'
         });
+
+    }
+
+    deletePersonHandler = (personIndex) => {
+        const persons = this.state.persons;
+        persons.splice(personIndex,1);
+        this.setState({persons:persons})
 
     }
 
@@ -84,57 +69,27 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    {/* <img src={logo} className="App-logo" alt="logo" /> */}
-                    {/* <h1 className="App-title">Welcome to React</h1> */}
                 </header>
 
-                {/* <p className="App-intro">
-          bismillah1
-          <code>src/App.js</code>
-          and save to reload.
-        </p> */}
-
-                {/* //click with bind it is recommended*/}
-                {/* <button style={style}
-          onClick={this
-          .switchNameHandler
-          .bind(this, 'Ragnarok with bind!!')}>switch with bind
-        </button>
-        <button onClick={() => this.switchNameHandler('Ragnarok with function!')}>switch with function</button> */}
-
-                <button style ={style} onClick={this.togglePersonHandler}>Switch Name</button>
+                <button style={style} onClick={this.togglePersonHandler}>Switch Name</button>
 
                 {this.state.showPersons
                     ? <div>
-                        {this.state.persons.map((person)=>{
+                        {this.state.persons.map((person,index) => {
 
-                            return <Person name={person.name} age={person.age}/>
-
+                            return <Person
+                                click={()=> this.deletePersonHandler(index)}
+                                name={person.name}
+                                age={person.age}/>
                         })
                         }
-                        {/*<Person
-                            click={this
-                                .switchNameHandler
-                                .bind(this, 'Lepo')}
-                            name={this.state.persons[0].name}
-                            age={this.state.persons[0].age}></Person>
 
-                        <Person
-                            changed={this.nameChangeHandler}
-                            name={this.state.persons[1].name}
-                            age={this.state.persons[1].age}>
-                            My Hobbies:racing
-                        </Person>
-                        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}></Person>*/}
                     </div>
                     : null
                 }
 
             </div>
 
-            // return
-            // React.createElement('div',{className:'App'},React.createElement('h1',null,'ah
-            // a haha'));
         );
     }
 }
