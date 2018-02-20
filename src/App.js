@@ -8,12 +8,15 @@ class App extends Component {
     state = {
         persons: [
             {
+                id:1,
                 name: 'MAX',
                 age: 12
             }, {
+                id:2,
                 name: 'arsaln',
                 age: 2
             }, {
+                id:3,
                 name: 'josh',
                 age: 11
             }
@@ -40,7 +43,9 @@ class App extends Component {
     }
 
     deletePersonHandler = (personIndex) => {
-        const persons = this.state.persons;
+
+        //const persons = this.state.persons.slice();
+        const persons = [...this.state.persons];
         persons.splice(personIndex,1);
         this.setState({persons:persons})
 
@@ -80,7 +85,9 @@ class App extends Component {
                             return <Person
                                 click={()=> this.deletePersonHandler(index)}
                                 name={person.name}
-                                age={person.age}/>
+                                age={person.age}
+                                key={person.id}
+                            />
                         })
                         }
 
