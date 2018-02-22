@@ -23,21 +23,29 @@ class App extends Component {
         ]
     }
 
-    nameChangeHandler = (event) => {
+    nameChangeHandler = (event,id) => {
+
+        const personIndex = this.state.persons.findIndex(p =>{
+            return p.id === id;
+
+        });
+        //moderen approach of the spread operstor
+        const person = {
+            ...this.state.persons[personIndex]
+        };
+
+        //alternative approach
+        //const person = Object.assign({},this.state.persons[personIndex]);
+
+        person.name = event.target.value;
+
+        const persons = [...this.state.persons]
+
+        persons[personIndex] = person;
+
+
         this.setState({
-            persons: [
-                {
-                    name: 'Malvin',
-                    age: 6
-                }, {
-                    name: event.target.value,
-                    age: 7
-                }, {
-                    name: 'bandit',
-                    age: 17
-                }
-            ],
-            otherState: 'the other state'
+            persons: persons
         });
 
     }
@@ -87,6 +95,7 @@ class App extends Component {
                                 name={person.name}
                                 age={person.age}
                                 key={person.id}
+                                changed={(event)=>this.nameChangeHandler(event,person.id)}
                             />
                         })
                         }
